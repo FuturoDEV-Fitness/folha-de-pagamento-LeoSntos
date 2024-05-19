@@ -2,6 +2,7 @@ const { calcularSalarioLiquido } = require("./calculo_salario_liquido");
 const { calcularINSS } = require("./calculo_inss");
 const { calcularImpostoRenda } = require("./calculo_imposto_renda");
 const readline = require('readline');
+const fs = require('fs');
 
 
 function programaPrincipal() {
@@ -20,15 +21,22 @@ function programaPrincipal() {
                     const valorINSS = calcularINSS(salarioBruto);
                     const salarioLiquido = calcularSalarioLiquido(salarioBruto, imposto, valorINSS);
 
-                    console.log("--- folha de pagamento ---");
-                    console.log(`Nome: ${nome}`);
-                    console.log(`Cpf: ${cpf}`);
-                    console.log(`Salário bruto: ${salarioBruto}`);
-                    console.log(`INSS: ${valorINSS.toFixed(2)}`);
-                    console.log(`Imposto de renda: ${imposto.toFixed(2)}`);
-                    console.log(`Salario líquido: ${salarioLiquido.toFixed(2)}`);
+                    const folhaPagamento = `--- Folha de Pagamento ---\nNome: ${nome}\nCPF: ${cpf}\nMês: ${mes}\nSalário bruto: ${salarioBruto}\nINSS: ${valorINSS.toFixed(2)}\nImposto de renda: ${imposto.toFixed(2)}\nSalário líquido: ${salarioLiquido.toFixed(2)}`;
 
-                    input.close();
+                    console.log(folhaPagamento)
+
+                    input.question("Deseja emitir um pdf? (s/n) ", (resposta) => {
+                        if (resposta === 's') {
+                            fs.writeFile('folha_pagamento.pdf', folhaPagamento, (err) => {
+                                if (err) {
+                                    console.log(err)
+                                } else {
+                                    console.log('PDF criado com sucesso!')
+                                    input.close()
+                                }
+                            })
+                        }
+                    })
                 })
             })
         })
