@@ -17,6 +17,4 @@ function calcularINSS(salarioBruto) {
     return valorINSS;
 }
 
-const salarioBruto = 6000;
-const valorINSS = calcularINSS(salarioBruto);
-console.log(`O valor do INSS a ser pago é: R$ ${valorINSS.toFixed(2)}`);
+module.exports = { calcularINSS };

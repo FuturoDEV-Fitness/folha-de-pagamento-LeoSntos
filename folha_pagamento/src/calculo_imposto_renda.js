@@ -16,7 +16,4 @@ function calcularImpostoRenda(salarioBruto) {
     return imposto > 0 ? imposto : 0;
 }
 
-// Exemplo de uso:
-let salarioBruto = 2113; // Insira aqui o salário bruto
-const impostoAPagar = calcularImpostoRenda(salarioBruto);
-console.log("Imposto a pagar:", impostoAPagar.toFixed(2));
+module.exports = { calcularImpostoRenda };
